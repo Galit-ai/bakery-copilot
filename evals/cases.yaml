@@ -106,7 +106,7 @@
       content: "Hello, what can you do ?"
     - role: assistant
       content: |-
-        Hi! I'm Bakery Copilot, and I help with two things:
+        Hi! I'm Oven & Co. Copilot, and I help with two things:
 
         **1. Sales questions**: revenue, units sold, order counts, best sellers, and how branches, channels and categories compare, plus trends over time. Examples:
         - "Top 5 pastries in July?"
@@ -141,7 +141,7 @@
     - role: user
       content: "My name is Noa, what is your name?"
     - role: assistant
-      content: "Hi Noa! I'm Bakery Copilot, the bakery's assistant. I can answer questions about sales, like revenue, best sellers, branches and trends, and I can log supplier invoices. What do you need?"
+      content: "Hi Noa! I'm Oven & Co. Copilot, the bakery's assistant. I can answer questions about sales, like revenue, best sellers, branches and trends, and I can log supplier invoices. What do you need?"
     - role: user
       content: "do you have chocolate?"
     - role: assistant

@@ -1,4 +1,4 @@
-// Bakery Copilot — the UI layer. It displays what the backend sends; it remembers nothing itself.
+// Oven & Co. Copilot — the UI layer. It displays what the backend sends; it remembers nothing itself.
 (() => {
   const $ = (id) => document.getElementById(id);
   const state = { user: null, conversations: [], current: null, image: null, streaming: false };
@@ -24,7 +24,7 @@
 
   // ---------- auth ----------
   function showLogin() { $("login").classList.remove("hidden"); $("app").classList.add("hidden"); }
-  function showApp() { $("login").classList.add("hidden"); $("app").classList.remove("hidden"); $("who").textContent = state.user ? `signed in as ${state.user.name}` : ""; }
+  function showApp() { $("login").classList.add("hidden"); $("app").classList.remove("hidden"); $("who").textContent = state.user ? `מחובר/ת בתור ${state.user.name}` : ""; }
 
   $("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -67,19 +67,19 @@
   }
   function renderEmpty() {
     $("messages").innerHTML = `<div class="empty"><p>Ask about sales, or attach an invoice photo.</p>
-      <span class="hint" data-q="What sold best last week?">What sold best last week?</span>
-      <span class="hint" data-q="Revenue by branch this month">Revenue by branch this month</span>
-      <span class="hint" data-q="How many Challah did we sell in August 2026?">Challah in August 2026</span></div>`;
+      <span class="hint" data-q="מה נמכר הכי טוב בשבוע שעבר?">מה נמכר הכי טוב בשבוע שעבר?</span>
+      <span class="hint" data-q="הכנסות לפי סניף החודש">הכנסות לפי סניף החודש</span>
+      <span class="hint" data-q="כמה חלות מכרנו באוגוסט 2026?">חלות באוגוסט 2026</span></div>`;
     $("messages").querySelectorAll(".hint").forEach((h) => h.addEventListener("click", () => { $("input").value = h.dataset.q; $("input").focus(); }));
   }
-  $("new-chat").addEventListener("click", () => { state.current = null; $("conv-title").textContent = "New chat"; renderConversations(); renderEmpty(); $("input").focus(); });
+  $("new-chat").addEventListener("click", () => { state.current = null; $("conv-title").textContent = "שיחה חדשה"; renderConversations(); renderEmpty(); $("input").focus(); });
 
   // ---------- messages ----------
   function addBubble(role, text, { hasImage = false, imageDataUrl = null, time = null } = {}) {
     const div = document.createElement("div");
     div.className = `msg ${role}`;
-    const who = role === "user" ? (state.user ? state.user.name : "You") : "Bakery Copilot";
-    const initial = role === "user" ? who.trim().charAt(0).toUpperCase() : "🥐";
+    const who = role === "user" ? (state.user ? state.user.name : "You") : "תנור ושות'";
+    const initial = role === "user" ? who.trim().charAt(0).toUpperCase() : "🥖";
     const when = time ? new Date(time) : new Date();
     const stamp = when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     let inner = "";
@@ -96,12 +96,12 @@
   $("image").addEventListener("change", () => {
     const file = $("image").files[0];
     if (!file) { state.image = null; $("attachment").classList.add("hidden"); return; }
-    if (file.size > 5 * 1024 * 1024) { alert("Image is larger than 5 MB."); $("image").value = ""; return; }
+    if (file.size > 5 * 1024 * 1024) { alert("התמונה גדולה מ-5MB."); $("image").value = ""; return; }
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = reader.result;
       state.image = { media_type: file.type, data: dataUrl.split(",")[1], dataUrl, name: file.name };
-      $("attachment").textContent = `Attached: ${file.name}`; $("attachment").classList.remove("hidden");
+      $("attachment").textContent = `צורף: ${file.name}`; $("attachment").classList.remove("hidden");
     };
     reader.readAsDataURL(file);
   });
